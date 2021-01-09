@@ -1,27 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Products } from '../Model/ProductsModel';
+import React from 'react';
 
-export function ProductsView(){
+export function ProductsView(props){
 
-	const[products, setProducts] = useState([])
-
-	useEffect(() =>{
-		Products.getProducts().then(response =>{
-			setProducts(response);
-		})
-	}, [])
-
-	const deletePdt = (id) => {
-		//Products.deleteProduct(id)
-		const newState = products.filter(el => el.id !== id);
-		setProducts(newState);
-	}
+	const products = props.products;
 
 	return(
 		<ul>
 		{products.map(el => 
 			<li key={el.id}>{el.name} 
-				<button onClick={() => deletePdt(el.id)}>Удалить</button>
+				<button onClick={() => props.deletePdt(el.id)}>Удалить</button>
 			</li>
 		)}
 		</ul>
